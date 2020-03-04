@@ -35,9 +35,10 @@ class Window(QWidget):
     
 
     self.show();
+    
 
-
-
+  
+  
 
 
 if __name__ == "__main__":
