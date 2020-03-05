@@ -8,16 +8,18 @@ class Window(QMainWindow):
   def __init__(self):
     super().__init__()
 
-    self.title = "PyQt5 Window";
-    self.top = 100;
-    self.left = 100;
+    self.top = 300;
+    self.left = 1100;
     self.width = 400;
-    self.height = 300;
+    self.height = 250;
+    self.iconName = "../_Icons/pic.jpg";
+    self.title = "PyQt5 Window";
+   
 
     self.InitWindow();
 
   def InitWindow(self):
-    self.setWindowIcon(QtGui.QIcon("pic.jpg"));
+    self.setWindowIcon(QtGui.QIcon(iconName));
     self.setWindowTitle(self.title);
     self.setGeometry(self.left, self.top, self.width, self.height);
 

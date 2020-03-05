@@ -9,7 +9,7 @@ class Window(QWidget):
   def __init__(self, val):
     super().__init__()
 
-    self.title = "PyQt5 QSlider";
+    self.title = "PyQt5 QScroll Area";
     self.top = 300;
     self.left = 1100;
     self.width = 400;
