@@ -14,7 +14,7 @@ class Window(QMainWindow):
   def __init__(self):
     super().__init__()
 
-    self.title = "PyQt5 QColorDiaglog";
+    self.title = "PyQt5 QPreviewDiaglog";
     self.top = 300;
     self.left = 1100;
     self.width = 500;
@@ -45,48 +45,48 @@ class Window(QMainWindow):
     printAction.triggered.connect(self.printDialog);
     fileMenu.addAction(printAction);
 
+    # add print preview action
     printPreviewAction = QAction(QIcon("../_Icons/print_preview.png"), "Print Preview", self);
-
+    printPreviewAction.triggered.connect(self.printPreviewDialog);
+    fileMenu.addAction(printPreviewAction); # add to fileMenu
     
-
-
-    # add action to editMenu
+    # add exit action
     exitAction = QAction(QIcon("../_Icons/exit.png"), 'Exit', self);
     exitAction.setShortcut("Ctrl+E");
     exitAction.triggered.connect(self.exitWindow);
-    fileMenu.addAction(exitAction);
+    fileMenu.addAction(exitAction); # add to fileMenu
 
 
-    # Add Actions to editMenu
+    # add copy action
     copyAction = QAction(QIcon("../_Icons/copy.png"), 'Copy', self);
     copyAction.setShortcut("Ctrl+C");
-    editMenu.addAction(copyAction);
+    editMenu.addAction(copyAction); # add to editMenu
 
+    # add cut Action
     cutAction = QAction(QIcon("../_Icons/cut.png"), 'Cut', self);
     cutAction.setShortcut("Ctrl+X");
-    editMenu.addAction(cutAction);
+    editMenu.addAction(cutAction); # add to editMenu
 
+    # add save action
     saveAction = QAction(QIcon("../_Icons/save.png"), 'Save', self);
     saveAction.setShortcut("Ctrl+S");
-    editMenu.addAction(saveAction);
+    editMenu.addAction(saveAction); # add to editMenu
 
+    # add paste action
     pasteAction = QAction(QIcon("../_Icons/paste.png"), 'paste', self);
     pasteAction.setShortcut("Ctrl+P");
-    editMenu.addAction(pasteAction);
+    editMenu.addAction(pasteAction); # add to editMenu
 
     # create fontAction and add to viewMenu
     fontAction = QAction(QIcon("../_Icons/choose-font.png"), "Font", self);
     fontAction.setShortcut("Ctrl+F");
     fontAction.triggered.connect(self.fontDialog);
-    viewMenu.addAction(fontAction);
+    viewMenu.addAction(fontAction); # add to viewMenu
 
     # create colorAction and add to viewMenu
     colorAction = QAction(QIcon("../_Icons/color.svg"), "Color", self);
     colorAction.triggered.connect(self.colorDialog);
-    viewMenu.addAction(colorAction);
-
-
-
+    viewMenu.addAction(colorAction); # add to viewMenu
 
     # create Toolbar
     toolbar = self.addToolBar("ToolBar");
@@ -100,6 +100,7 @@ class Window(QMainWindow):
     toolbar.addAction(fontAction);
     toolbar.addAction(colorAction);
     toolbar.addAction(printAction);
+    toolbar.addAction(printPreviewAction);
 
 
   def exitWindow(self):
@@ -126,6 +127,14 @@ class Window(QMainWindow):
       self.textEdit.print_(printer);
   
   
+  def printPreviewDialog(self):
+    printer = QPrinter(QPrinter.HighResolution);
+    previewDialog = QPrintPreviewDialog(printer, self);
+    previewDialog.paintRequested.connect(self.printPreview);
+    previewDialog.exec_();
+
+  def printPreview(self, printer):
+    self.textEdit.print_(printer);
     
 
    
